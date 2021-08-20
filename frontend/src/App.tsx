@@ -1,7 +1,18 @@
 import React, { FC } from 'react';
+import Main from './pages/main';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Layout from './components/Layout';
 
 const App: FC = () => {
-  return <div className="bg-red-100">Hello, ReactTS!</div>;
+  return (
+    <Router>
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={Main} />
+        </Switch>
+      </Layout>
+    </Router>
+  );
 };
 
 export default App;
