@@ -8,9 +8,11 @@ interface CardProps {
 
 const Card: FC<CardProps> = ({ tweet }) => {
   return (
-    <div>
-      <ProfileIcon />
-      {tweet.tweet}
+    <div className="flex">
+      <div>
+        <ProfileIcon />
+      </div>
+      <div className="font-noto">{tweet.users.nickname}</div>
     </div>
   );
 };
