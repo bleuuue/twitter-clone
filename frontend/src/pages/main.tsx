@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { FC } from 'react';
 import useSWR from 'swr';
 import Cards from '../components/Cards';
+import Header from '../components/Header';
+import CreateTweet from '../components/main/CreateTweet';
 import { ITweet } from '../interfaces';
 
 const Main: FC = () => {
@@ -15,15 +17,21 @@ const Main: FC = () => {
     }
   };
 
-  const { data, error } = useSWR<ITweet[]>(
+  const { data, error, mutate } = useSWR<ITweet[]>(
     `${process.env.REACT_APP_BACK_URL}/tweets`,
     fetcher,
   );
 
-  if (!data) return <div>loading...</div>;
+  if (!data) return <div className="bg-blue-700">loading...</div>;
   if (error) return <div>error</div>;
 
-  return <Cards tweets={data} />;
+  return (
+    <>
+      <Header title={'Home'} />
+      <CreateTweet mutate={mutate} />
+      <Cards tweets={data} />
+    </>
+  );
 };
 
 export default Main;
