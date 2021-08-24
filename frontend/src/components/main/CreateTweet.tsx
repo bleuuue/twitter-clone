@@ -16,10 +16,6 @@ interface CreateTweetProps {
 const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
   const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    console.log(token);
-  }, []);
-
   const [tweet, setTweet] = useState<string>('');
 
   const onChangeTweet = (e: ChangeEvent<HTMLInputElement>) => {
