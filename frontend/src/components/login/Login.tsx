@@ -6,22 +6,48 @@ import { useInput } from '../../hooks';
 
 const Login: FC = () => {
   const [passwordError, setPasswordError] = useState<string>('');
-  const [email, onChangeEmail] = useInput('');
+  const [signUpEmail, onChangeSignUpEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
-  const [password, onChangePassword] = useInput('');
+  const [signUpPassword, onChangeSignUpPassword] = useInput('');
   const [passwordCheck, onChangePasswordCheck] = useInput('');
+
+  const [email, onChangeEmail] = useInput('');
+  const [password, onChangePassword] = useInput('');
 
   const onSubmitSignup = async (e: FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
 
-      if (passwordError || !email || !nickname || !password) return;
+      if (passwordError || !signUpEmail || !nickname || !signUpPassword) return;
 
       const response = await axios.post(
         `${process.env.REACT_APP_BACK_URL}/users`,
         {
-          email: email,
+          email: signUpEmail,
           nickname,
+          password: signUpPassword,
+        },
+      );
+
+      if (response.statusText === 'Created') {
+        localStorage.setItem('token', response.data.token);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const onSubmitLogin = async (e: FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+
+      if (!email || !password) return;
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACK_URL}/users/login`,
+        {
+          email: email,
           password: password,
         },
       );
@@ -36,12 +62,12 @@ const Login: FC = () => {
   };
 
   useEffect(() => {
-    if (password === passwordCheck) {
+    if (signUpPassword === passwordCheck) {
       setPasswordError('');
     } else {
       setPasswordError('패스워드가 일치하지 않습니다.');
     }
-  }, [password, passwordCheck]);
+  }, [signUpPassword, passwordCheck]);
 
   return (
     <div className="min-h-screen flex">
@@ -63,8 +89,8 @@ const Login: FC = () => {
               className="input mb-2 w-96 text-2xl"
               placeholder="Email"
               type="text"
-              value={email}
-              onChange={onChangeEmail}
+              value={signUpEmail}
+              onChange={onChangeSignUpEmail}
             />
             <br />
             <input
@@ -80,8 +106,8 @@ const Login: FC = () => {
               className="input mb-2 w-96 text-2xl"
               placeholder="Password"
               type="password"
-              value={password}
-              onChange={onChangePassword}
+              value={signUpPassword}
+              onChange={onChangeSignUpPassword}
             />
             <br />
             <input
@@ -103,6 +129,34 @@ const Login: FC = () => {
             <br />
           </form>
         </div>
+        <div className="font-bold text-4xl mb-2">Login</div>
+        <form onSubmit={onSubmitLogin}>
+          <input
+            className="input mb-2 w-96 text-2xl"
+            placeholder="Email"
+            type="text"
+            value={email}
+            onChange={onChangeEmail}
+          />
+          <br />
+          <input
+            className="input mb-2 w-96 text-2xl"
+            placeholder="Password"
+            type="text"
+            value={password}
+            onChange={onChangePassword}
+          />
+          <br />
+          <input
+            className="input w-96 text-2xl bg-white"
+            type="submit"
+            value="Login"
+          />
+          {passwordError && (
+            <div className="text-red-500 text-xs">{passwordError}</div>
+          )}
+          <br />
+        </form>
       </div>
     </div>
   );
