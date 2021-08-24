@@ -7,6 +7,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dtos/login.dto';
 import { IsEmail } from 'class-validator';
 import { JwtService } from '@nestjs/jwt';
+import { Request } from 'express';
 
 @Injectable()
 export class UsersService {
@@ -56,5 +57,9 @@ export class UsersService {
     const token = this.jwtService.sign({ id: user.id });
 
     return { token };
+  }
+
+  async getMe(req: Request): Promise<number> {
+    return +req.user;
   }
 }

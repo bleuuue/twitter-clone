@@ -1,6 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
+import { MeContext } from '../contexts';
+import Login from './login/Login';
 
 const Layout: FC = ({ children }) => {
+  const { me } = useContext(MeContext);
+
+  useEffect(() => console.log(me), []);
+
+  if (!me) return <Login />;
+
   return (
     <div className="flex min-h-screen front-noto">
       <div className="flex-auto">1</div>
