@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { FC } from 'react';
 import useSWR from 'swr';
-import Cards from '../components/Cards';
+import Cards from '../components/card/Cards';
 import Header from '../components/Header';
 import CreateTweet from '../components/main/CreateTweet';
 import { ITweet } from '../interfaces';

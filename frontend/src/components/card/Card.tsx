@@ -1,6 +1,4 @@
 import React, { FC } from 'react';
-import { ITweet } from '../interfaces';
-import ProfileIcon from './ProfileIcon';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
@@ -10,6 +8,9 @@ import {
   faHeart as farHeart,
 } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsisH, faRetweet } from '@fortawesome/free-solid-svg-icons';
+import Like from './Like';
+import ProfileIcon from '../ProfileIcon';
+import { ITweet } from '../../interfaces';
 
 interface CardProps {
   tweet: ITweet;
@@ -38,10 +39,7 @@ const Card: FC<CardProps> = ({ tweet }) => {
             <FontAwesomeIcon icon={faRetweet} />
             <span className="ml-2">123</span>
           </div>
-          <div className="w-full">
-            <FontAwesomeIcon icon={farHeart} />
-            <span className="ml-2">123</span>
-          </div>
+          <Like tweet={tweet} />
           <div className="w-full">
             <FontAwesomeIcon icon={faEllipsisH} />
           </div>
