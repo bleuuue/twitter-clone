@@ -4,6 +4,8 @@ import axios from 'axios';
 import React, { FC } from 'react';
 import { ITweet } from '../../interfaces';
 import { MutatorCallback } from 'swr/dist/types';
+import useSWR from 'swr';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 interface LikeButtonProps {
   tweet: ITweet;
@@ -14,10 +16,10 @@ interface LikeButtonProps {
 }
 
 const LikeButton: FC<LikeButtonProps> = ({ tweet, countMutate }) => {
+  const token = localStorage.getItem('token');
+
   const onClickLike = async () => {
     try {
-      const token = localStorage.getItem('token');
-
       const response = await axios.put(
         `${process.env.REACT_APP_BACK_URL}/likes/tweets/${tweet.id}`,
         {},
@@ -29,15 +31,41 @@ const LikeButton: FC<LikeButtonProps> = ({ tweet, countMutate }) => {
       );
 
       if (response.statusText === 'OK') {
+        mutate();
         countMutate();
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const fetcher = async (url: string) => {
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const { data, error, mutate } = useSWR(
+    `${process.env.REACT_APP_BACK_URL}/likes/isLike/tweets/${tweet.id}`,
+    fetcher,
+  );
+
+  if (!data) return <div>loading...</div>;
+  if (error) return <div>error</div>;
+
   return (
     <button onClick={onClickLike}>
-      <FontAwesomeIcon icon={farHeart} />
+      <FontAwesomeIcon
+        className={`text-base ${data?.like && 'text-green-500'}`}
+        icon={data?.like ? faHeart : farHeart}
+      />
     </button>
   );
 };
