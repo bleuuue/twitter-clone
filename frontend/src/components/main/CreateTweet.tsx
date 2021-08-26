@@ -55,7 +55,7 @@ const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
       <form className="w-full" onSubmit={onSubmitTweet}>
         <input
           className="w-full text-xl focus:outline-none placeholder-gray-600 my-6"
-          placeholder="insert Tweet!"
+          placeholder="What's happening?"
           value={tweet}
           onChange={onChangeTweet}
         />
