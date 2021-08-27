@@ -18,6 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { DeleteTweetOutputDto } from 'src/likes/dtos/deleteTweet.dto';
 import { UpdateResult } from 'typeorm';
 import { CreateTweetDto } from './dtos/createTweet.dto';
 import { TweetsService } from './tweets.service';
@@ -48,7 +49,7 @@ export class TweetsController {
     description: '트윗Id',
   })
   @ApiOkResponse({
-    type: UpdateResult,
+    type: DeleteTweetOutputDto,
     description: '트윗 삭제 성공',
   })
   @ApiResponse({
@@ -57,7 +58,10 @@ export class TweetsController {
   })
   @UseGuards(JwtAuthGuard)
   @Delete(':tweetsId')
-  async deleteTweet(@Req() req: Request, @Param() param: { tweetsId: string }) {
+  async deleteTweet(
+    @Req() req: Request,
+    @Param() param: { tweetsId: string },
+  ): Promise<DeleteTweetOutputDto> {
     return await this.tweetsService.deleteTweet(req, param);
   }
 }

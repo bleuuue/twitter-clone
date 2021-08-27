@@ -66,12 +66,16 @@ export class TweetsService {
 
     if (likes.length !== 0) {
       await Promise.all(
-        likes.map(async (like) => {
-          await this.likesRepository.softDelete({ id: like.id });
+        likes.map((like) => {
+          this.likesRepository.softDelete({ id: like.id });
         }),
       );
     }
 
-    return await this.tweetsRepository.softDelete({ id: +param.tweetsId });
+    const deleteTweetResult = await this.tweetsRepository.softDelete({
+      id: +param.tweetsId,
+    });
+
+    return deleteTweetResult.affected === 1 ? { ok: true } : { ok: false };
   }
 }
