@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useState, useEffect } from 'react';
 import {
   faEllipsisH,
   faExclamationTriangle,
@@ -13,15 +13,11 @@ import axios from 'axios';
 import { LikeProps } from './Like';
 import { MutatorCallback } from 'swr/dist/types';
 import { ITweet } from '../../interfaces';
+import { CardProps } from './Card';
 
-interface EllipsisProps extends LikeProps {
-  mutate: (
-    data?: ITweet[] | Promise<ITweet[]> | MutatorCallback<ITweet[]> | undefined,
-    shouldRevalidate?: boolean | undefined,
-  ) => Promise<ITweet[] | undefined>;
-}
+type EllipsisProps = CardProps;
 
-const Ellipsis: FC<EllipsisProps> = ({ tweet, mutate }) => {
+const Ellipsis: FC<EllipsisProps> = ({ tweet, mutate, ellipsisEl }) => {
   const { me } = useContext(MeContext);
 
   const [ellipsisToggle, setEllipsisToggle] = useState<boolean>(false);
@@ -50,6 +46,21 @@ const Ellipsis: FC<EllipsisProps> = ({ tweet, mutate }) => {
       console.error(error);
     }
   };
+
+  const ellipsisToggleHandler = (e: any) => {
+    if (
+      ellipsisToggle &&
+      (!ellipsisEl.current || !ellipsisEl.current.contains(e.target))
+    ) {
+      setEllipsisToggle(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('click', ellipsisToggleHandler);
+
+    return () => window.removeEventListener('click', ellipsisToggleHandler);
+  });
 
   return (
     <div className="w-full relative ">

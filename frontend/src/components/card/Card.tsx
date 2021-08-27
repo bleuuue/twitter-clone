@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, MutableRefObject } from 'react';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
@@ -14,15 +14,16 @@ import { ITweet } from '../../interfaces';
 import Ellipsis from './Ellipsis';
 import { MutatorCallback } from 'swr/dist/types';
 
-interface CardProps {
+export interface CardProps {
   tweet: ITweet;
   mutate: (
     data?: ITweet[] | Promise<ITweet[]> | MutatorCallback<ITweet[]> | undefined,
     shouldRevalidate?: boolean | undefined,
   ) => Promise<ITweet[] | undefined>;
+  ellipsisEl: MutableRefObject<HTMLDivElement | null>;
 }
 
-const Card: FC<CardProps> = ({ tweet, mutate }) => {
+const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
   dayjs.extend(relativeTime);
 
   return (
@@ -46,7 +47,7 @@ const Card: FC<CardProps> = ({ tweet, mutate }) => {
             <span className="ml-2">123</span>
           </div>
           <Like tweet={tweet} />
-          <Ellipsis tweet={tweet} mutate={mutate} />
+          <Ellipsis tweet={tweet} mutate={mutate} ellipsisEl={ellipsisEl} />
         </div>
       </div>
     </li>

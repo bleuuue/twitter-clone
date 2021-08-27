@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { createRef, FC, MutableRefObject, useRef } from 'react';
 import { mutate } from 'swr';
 import { ITweet } from '../../interfaces';
 import Card from './Card';
@@ -13,10 +13,23 @@ interface CardProps {
 }
 
 const Cards: FC<CardProps> = ({ tweets, mutate }) => {
+  const ellipsisElRefs = useRef<MutableRefObject<HTMLDivElement | null>[]>([]);
+
+  ellipsisElRefs.current = tweets.map(
+    (_, i) => ellipsisElRefs.current[i] ?? createRef(),
+  );
+
   return (
     <div>
-      {tweets.map((tweet) => {
-        return <Card key={tweet.id} tweet={tweet} mutate={mutate} />;
+      {tweets.map((tweet, i) => {
+        return (
+          <Card
+            key={tweet.id}
+            tweet={tweet}
+            mutate={mutate}
+            ellipsisEl={ellipsisElRefs.current[i]}
+          />
+        );
       })}
     </div>
   );
