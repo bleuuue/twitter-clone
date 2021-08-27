@@ -29,7 +29,7 @@ const Main: FC = () => {
     <>
       <Header title={'Home'} />
       <CreateTweet mutate={mutate} />
-      <Cards tweets={data} />
+      <Cards tweets={data} mutate={mutate} />
     </>
   );
 };

@@ -5,7 +5,7 @@ import axios from 'axios';
 import useSWR from 'swr';
 import LikeButton from './LikeButton';
 
-interface LikeProps {
+export interface LikeProps {
   tweet: ITweet;
 }
 

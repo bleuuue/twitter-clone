@@ -7,16 +7,22 @@ import {
   faComment as farComment,
   faHeart as farHeart,
 } from '@fortawesome/free-regular-svg-icons';
-import { faEllipsisH, faRetweet } from '@fortawesome/free-solid-svg-icons';
+import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import Like from './Like';
 import ProfileIcon from '../ProfileIcon';
 import { ITweet } from '../../interfaces';
+import Ellipsis from './Ellipsis';
+import { MutatorCallback } from 'swr/dist/types';
 
 interface CardProps {
   tweet: ITweet;
+  mutate: (
+    data?: ITweet[] | Promise<ITweet[]> | MutatorCallback<ITweet[]> | undefined,
+    shouldRevalidate?: boolean | undefined,
+  ) => Promise<ITweet[] | undefined>;
 }
 
-const Card: FC<CardProps> = ({ tweet }) => {
+const Card: FC<CardProps> = ({ tweet, mutate }) => {
   dayjs.extend(relativeTime);
 
   return (
@@ -40,9 +46,7 @@ const Card: FC<CardProps> = ({ tweet }) => {
             <span className="ml-2">123</span>
           </div>
           <Like tweet={tweet} />
-          <div className="w-full">
-            <FontAwesomeIcon icon={faEllipsisH} />
-          </div>
+          <Ellipsis tweet={tweet} mutate={mutate} />
         </div>
       </div>
     </li>
