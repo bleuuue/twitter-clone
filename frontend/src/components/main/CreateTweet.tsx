@@ -1,7 +1,7 @@
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { MutatorCallback } from 'swr/dist/types';
 import { ITweet } from '../../interfaces';
 import ProfileIcon from '../ProfileIcon';

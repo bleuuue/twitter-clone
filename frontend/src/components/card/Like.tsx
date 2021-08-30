@@ -1,5 +1,4 @@
-import React, { FC, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { FC } from 'react';
 import { ITweet } from '../../interfaces';
 import axios from 'axios';
 import useSWR from 'swr';

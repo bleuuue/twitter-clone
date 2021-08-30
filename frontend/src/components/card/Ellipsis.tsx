@@ -10,9 +10,6 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { MeContext } from '../../contexts';
 import axios from 'axios';
-import { LikeProps } from './Like';
-import { MutatorCallback } from 'swr/dist/types';
-import { ITweet } from '../../interfaces';
 import { CardProps } from './Card';
 
 type EllipsisProps = CardProps;

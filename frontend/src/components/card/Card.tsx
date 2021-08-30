@@ -3,10 +3,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/ko';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faComment as farComment,
-  faHeart as farHeart,
-} from '@fortawesome/free-regular-svg-icons';
+import { faComment as farComment } from '@fortawesome/free-regular-svg-icons';
 import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import Like from './Like';
 import ProfileIcon from '../ProfileIcon';
