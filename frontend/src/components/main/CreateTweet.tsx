@@ -6,11 +6,15 @@ import { MutatorCallback } from 'swr/dist/types';
 import { ITweet } from '../../interfaces';
 import ProfileIcon from '../ProfileIcon';
 
-interface CreateTweetProps {
+export interface CreateTweetProps {
   mutate: (
-    data?: ITweet[] | Promise<ITweet[]> | MutatorCallback<ITweet[]> | undefined,
+    data?:
+      | ITweet[][]
+      | Promise<ITweet[][]>
+      | MutatorCallback<ITweet[][]>
+      | undefined,
     shouldRevalidate?: boolean | undefined,
-  ) => Promise<ITweet[] | undefined>;
+  ) => Promise<ITweet[][] | undefined>;
 }
 
 const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
@@ -20,7 +24,6 @@ const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
 
   const onChangeTweet = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-
     setTweet(value);
   };
 
@@ -61,7 +64,7 @@ const CreateTweet: FC<CreateTweetProps> = ({ mutate }) => {
         />
         <div className="flex items-center text-green-500 pb-2 border-b-1 mr-4">
           <FontAwesomeIcon icon={faTwitter} />
-          <span className="m1-1 text-sm font-bold">Twitter clone!!!</span>
+          <span className="ml-1 text-sm font-bold">Twitter-clone !!!</span>
         </div>
         <div className="flex justify-end mr-4 my-4">
           <input

@@ -10,13 +10,10 @@ import ProfileIcon from '../ProfileIcon';
 import { ITweet } from '../../interfaces';
 import Ellipsis from './Ellipsis';
 import { MutatorCallback } from 'swr/dist/types';
+import { CreateTweetProps } from '../main/CreateTweet';
 
-export interface CardProps {
+export interface CardProps extends CreateTweetProps {
   tweet: ITweet;
-  mutate: (
-    data?: ITweet[] | Promise<ITweet[]> | MutatorCallback<ITweet[]> | undefined,
-    shouldRevalidate?: boolean | undefined,
-  ) => Promise<ITweet[] | undefined>;
   ellipsisEl: MutableRefObject<HTMLDivElement | null>;
 }
 

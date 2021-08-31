@@ -1,10 +1,15 @@
 import axios from 'axios';
-import React, { FC } from 'react';
-import useSWR from 'swr';
+import React, { FC, useEffect } from 'react';
+import { useSWRInfinite } from 'swr';
 import Cards from '../components/card/Cards';
 import Header from '../components/Header';
 import CreateTweet from '../components/main/CreateTweet';
 import { ITweet } from '../interfaces';
+
+const getKey = (pageIndex: number, previusPageData: any) => {
+  if (previusPageData && !previusPageData.length) return null;
+  return `${process.env.REACT_APP_BACK_URL}/tweets?page=${pageIndex}`;
+};
 
 const Main: FC = () => {
   const fetcher = async (url: string) => {
@@ -17,19 +22,32 @@ const Main: FC = () => {
     }
   };
 
-  const { data, error, mutate } = useSWR<ITweet[]>(
-    `${process.env.REACT_APP_BACK_URL}/tweets`,
+  const { data, error, mutate, size, setSize } = useSWRInfinite<ITweet[]>(
+    getKey,
     fetcher,
   );
 
-  if (!data) return <div className="bg-blue-700">loading...</div>;
+  const onClickMore = () => {
+    setSize(size + 1);
+  };
+
+  useEffect(() => {
+    console.log(data, size);
+  }, [data]);
+
+  if (!data) return <div>loading...</div>;
   if (error) return <div>error</div>;
 
   return (
     <>
-      <Header title={'Home'} />
+      <Header title="Home" />
       <CreateTweet mutate={mutate} />
-      <Cards tweets={data} mutate={mutate} />
+      {data.map((tweets, i) => {
+        return <Cards key={i} tweets={tweets} mutate={mutate} />;
+      })}
+      <button className="text-2xl" onClick={onClickMore}>
+        More
+      </button>
     </>
   );
 };

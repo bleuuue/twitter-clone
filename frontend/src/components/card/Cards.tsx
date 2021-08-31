@@ -2,16 +2,13 @@ import React, { createRef, FC, MutableRefObject, useRef } from 'react';
 import { ITweet } from '../../interfaces';
 import Card from './Card';
 import { MutatorCallback } from 'swr/dist/types';
+import { CreateTweetProps } from '../main/CreateTweet';
 
-interface CardProps {
+interface CardsProps extends CreateTweetProps {
   tweets: ITweet[];
-  mutate: (
-    data?: ITweet[] | Promise<ITweet[]> | MutatorCallback<ITweet[]> | undefined,
-    shouldRevalidate?: boolean | undefined,
-  ) => Promise<ITweet[] | undefined>;
 }
 
-const Cards: FC<CardProps> = ({ tweets, mutate }) => {
+const Cards: FC<CardsProps> = ({ tweets, mutate }) => {
   const ellipsisElRefs = useRef<MutableRefObject<HTMLDivElement | null>[]>([]);
 
   ellipsisElRefs.current = tweets.map(
