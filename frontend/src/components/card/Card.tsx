@@ -26,7 +26,7 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
         <ProfileIcon />
       </div>
       <div className="mt-6 text-sm w-full mr-4">
-        <span className="font-bold">{tweet.users.nickname}</span>
+        <span className="font-bold">{tweet.users?.nickname}</span>
         <span className="ml-2 text-gray-500">
           {dayjs(tweet.createdAt).locale('ko').fromNow()}
         </span>

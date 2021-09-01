@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { FC, useEffect } from 'react';
+import React, { createRef, FC, useEffect, useRef } from 'react';
 import { useSWRInfinite } from 'swr';
 import Cards from '../components/card/Cards';
 import Header from '../components/Header';
@@ -12,6 +12,10 @@ const getKey = (pageIndex: number, previusPageData: any) => {
 };
 
 const Main: FC = () => {
+  const lastEl = createRef<HTMLDivElement>();
+  const intersectionObserver = useRef<IntersectionObserver>();
+  const sizeRef = useRef<number>(1);
+
   const fetcher = async (url: string) => {
     try {
       const response = await axios.get(url);
@@ -32,8 +36,24 @@ const Main: FC = () => {
   };
 
   useEffect(() => {
-    console.log(data, size);
-  }, [data]);
+    if (data && !data[size - 1]) return;
+
+    if (!intersectionObserver.current && lastEl.current) {
+      intersectionObserver.current = new IntersectionObserver(
+        async (entries) => {
+          if (!entries[0].isIntersecting) return;
+
+          sizeRef.current += 1;
+
+          await setSize(sizeRef.current);
+        },
+      );
+
+      intersectionObserver.current.observe(lastEl.current);
+    }
+  }, [lastEl]);
+
+  useEffect(() => console.log(data), [data]);
 
   if (!data) return <div>loading...</div>;
   if (error) return <div>error</div>;
@@ -45,9 +65,12 @@ const Main: FC = () => {
       {data.map((tweets, i) => {
         return <Cards key={i} tweets={tweets} mutate={mutate} />;
       })}
-      <button className="text-2xl" onClick={onClickMore}>
+      <div ref={lastEl} className="text-white">
+        Twitter-clone
+      </div>
+      {/* <button className="text-2xl" onClick={onClickMore}>
         More
-      </button>
+      </button> */}
     </>
   );
 };
