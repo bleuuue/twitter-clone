@@ -1,5 +1,6 @@
 import React, { FC, useContext, useEffect } from 'react';
 import { MeContext } from '../contexts';
+import LeftMenu from './common/LeftMenu';
 import Login from './login/Login';
 
 const Layout: FC = ({ children }) => {
@@ -11,7 +12,7 @@ const Layout: FC = ({ children }) => {
 
   return (
     <div className="flex min-h-screen front-noto">
-      <div className="flex-auto">1</div>
+      <LeftMenu />
       <div className="max-w-screen-sm flex-auto border-r-1 border-l-1">
         {children}
       </div>
