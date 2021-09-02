@@ -12,8 +12,7 @@ const App: FC = () => {
         <Layout>
           <Switch>
             <Route exact path="/" component={Main} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/" component={Main} />
+            <Route exact path="/profile/:userId" component={Profile} />
           </Switch>
         </Layout>
       </Router>
