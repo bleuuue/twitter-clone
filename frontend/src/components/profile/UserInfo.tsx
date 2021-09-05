@@ -4,12 +4,15 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ProfileIcon from '../common/ProfileIcon';
 import { toastError, toastSuccess } from '../../utils/toastify';
+import { useGetProfileImage } from '../../hooks/useGetProfileImage';
 import imageCompression from 'browser-image-compression';
 
 const UserInfo: FC = () => {
   const { me } = useContext(MeContext);
 
   const { userId }: { userId: string } = useParams();
+
+  const { mutate } = useGetProfileImage(+userId);
 
   const onChangeProfileUpload = async (e: any) => {
     try {
@@ -40,6 +43,7 @@ const UserInfo: FC = () => {
       );
 
       if (response.statusText === 'OK') {
+        mutate();
         toastSuccess('Image upload success');
       }
     } catch (error) {
@@ -60,7 +64,7 @@ const UserInfo: FC = () => {
               type="file"
               onChange={onChangeProfileUpload}
             />
-            <span>Fix</span>
+            <span>upload image</span>
           </div>
         )}
       </div>
