@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { createRef, FC, useEffect, useRef } from 'react';
+import React, { createRef, FC, useEffect, useRef, useState } from 'react';
 import { useSWRInfinite } from 'swr';
-import Cards from '../components/card/Cards';
-import Header from '../components/Header';
+import Cards from '../components/common/card/Cards';
+import Header from '../components/common/Header';
 import CreateTweet from '../components/main/CreateTweet';
 import { ITweet } from '../interfaces';
 
@@ -15,6 +15,8 @@ const Main: FC = () => {
   const lastEl = createRef<HTMLDivElement>();
   const intersectionObserver = useRef<IntersectionObserver>();
   const sizeRef = useRef<number>(1);
+
+  const [test, setTest] = useState<boolean>(false);
 
   const fetcher = async (url: string) => {
     try {

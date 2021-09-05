@@ -8,7 +8,7 @@ import {
   faTrashAlt as farTrashAlt,
   faClone as farClone,
 } from '@fortawesome/free-regular-svg-icons';
-import { MeContext } from '../../contexts';
+import { MeContext } from '../../../contexts';
 import axios from 'axios';
 import { CardProps } from './Card';
 

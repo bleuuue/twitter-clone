@@ -2,7 +2,7 @@ import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import React, { FC } from 'react';
-import { ITweet } from '../../interfaces';
+import { ITweet } from '../../../interfaces';
 import { MutatorCallback } from 'swr/dist/types';
 import useSWR from 'swr';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';

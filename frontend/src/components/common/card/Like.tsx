@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ITweet } from '../../interfaces';
+import { ITweet } from '../../../interfaces';
 import axios from 'axios';
 import useSWR from 'swr';
 import LikeButton from './LikeButton';

@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { createRef, FC, useEffect, useRef } from 'react';
 import { useSWRInfinite } from 'swr';
-import Cards from '../components/card/Cards';
-import Header from '../components/Header';
+import Cards from '../components/common/card/Cards';
+import Header from '../components/common/Header';
 import CreateTweet from '../components/main/CreateTweet';
 import UserInfo from '../components/profile/UserInfo';
 import { ITweet } from '../interfaces';
 
 const getKey = (pageIndex: number, previusPageData: any) => {
+  // 마지막 페이지일 경우
   if (previusPageData && !previusPageData.length) return null;
   return `${process.env.REACT_APP_BACK_URL}/tweets?page=${pageIndex}`;
 };
@@ -39,6 +40,7 @@ const Profile: FC = () => {
   useEffect(() => {
     if (data && !data[size - 1]) return;
 
+    // 감지됐을 때
     if (!intersectionObserver.current && lastEl.current) {
       intersectionObserver.current = new IntersectionObserver(
         async (entries) => {

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/Layout';
 import { MeProvider } from './contexts';
 import Profile from './pages/profile';
+import { ToastContainer } from 'react-toastify';
 
 const App: FC = () => {
   return (
@@ -16,6 +17,7 @@ const App: FC = () => {
           </Switch>
         </Layout>
       </Router>
+      <ToastContainer />
     </MeProvider>
   );
 };

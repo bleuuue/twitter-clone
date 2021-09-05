@@ -1,8 +1,10 @@
 import React, { FC, useContext, useEffect } from 'react';
 import { MeContext } from '../../contexts';
-import ProfileIcon from '../ProfileIcon';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import ProfileIcon from '../common/ProfileIcon';
+import { toastError, toastSuccess } from '../../utils/toastify';
+import imageCompression from 'browser-image-compression';
 
 const UserInfo: FC = () => {
   const { me } = useContext(MeContext);
@@ -13,11 +15,19 @@ const UserInfo: FC = () => {
     try {
       const token = localStorage.getItem('token');
       const imageFile = e.target.files[0];
-      const formData = new FormData();
-
       if (!imageFile) return;
 
-      formData.append('image', imageFile);
+      const compressedImage = await imageCompression(imageFile, {
+        maxWidthOrHeight: 96,
+      });
+
+      const blobToFile = new File([compressedImage], compressedImage.name, {
+        type: compressedImage.type,
+      });
+
+      const formData = new FormData();
+
+      formData.append('image', blobToFile);
 
       const response = await axios.put(
         `${process.env.REACT_APP_BACK_URL}/users/profile`,
@@ -29,20 +39,28 @@ const UserInfo: FC = () => {
         },
       );
 
-      console.log(response);
+      if (response.statusText === 'OK') {
+        toastSuccess('Image upload success');
+      }
     } catch (error) {
       console.error(error);
+      toastError(error.response.data.message);
     }
   };
 
   return (
     <div className="flex border-b-1">
       <div>
-        <ProfileIcon />
+        <ProfileIcon userId={+userId} />
         <div>nickname</div>
         {me === +userId && (
-          <div>
-            <input type="file" onChange={onChangeProfileUpload} />
+          <div className="relative rounded-full px-2 py-1 font-black text-green-500 text-xs mx-2 mt-1 text-center">
+            <input
+              className="w-full opacity-0 absolute"
+              type="file"
+              onChange={onChangeProfileUpload}
+            />
+            <span>Fix</span>
           </div>
         )}
       </div>
