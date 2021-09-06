@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import { MeContext } from '../../contexts';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -58,13 +58,13 @@ const UserInfo: FC = () => {
         <ProfileIcon userId={+userId} />
         <div>nickname</div>
         {me === +userId && (
-          <div className="relative rounded-full px-2 py-1 font-black text-green-500 text-xs mx-2 mt-1 text-center">
+          <div className="relative rounded-full px-2 py-1 font-black text-white bg-green-500 text-xs mx-2 mt-1 text-center">
             <input
               className="w-full opacity-0 absolute"
               type="file"
               onChange={onChangeProfileUpload}
             />
-            <span>upload image</span>
+            <span>fix</span>
           </div>
         )}
       </div>

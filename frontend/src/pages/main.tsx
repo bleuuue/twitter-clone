@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { createRef, FC, useEffect, useRef, useState } from 'react';
+import React, { createRef, FC, useEffect, useRef } from 'react';
 import { useSWRInfinite } from 'swr';
 import Cards from '../components/common/card/Cards';
 import Header from '../components/common/Header';
@@ -16,8 +16,6 @@ const Main: FC = () => {
   const intersectionObserver = useRef<IntersectionObserver>();
   const sizeRef = useRef<number>(1);
 
-  const [test, setTest] = useState<boolean>(false);
-
   const fetcher = async (url: string) => {
     try {
       const response = await axios.get(url);
@@ -32,10 +30,6 @@ const Main: FC = () => {
     getKey,
     fetcher,
   );
-
-  const onClickMore = () => {
-    setSize(size + 1);
-  };
 
   useEffect(() => {
     if (data && !data[size - 1]) return;

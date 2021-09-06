@@ -1,7 +1,6 @@
 import React, { createRef, FC, MutableRefObject, useRef } from 'react';
 import { ITweet } from '../../../interfaces';
 import Card from './Card';
-import { MutatorCallback } from 'swr/dist/types';
 import { CreateTweetProps } from '../../main/CreateTweet';
 
 interface CardsProps extends CreateTweetProps {

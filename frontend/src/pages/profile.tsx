@@ -3,7 +3,6 @@ import React, { createRef, FC, useEffect, useRef } from 'react';
 import { useSWRInfinite } from 'swr';
 import Cards from '../components/common/card/Cards';
 import Header from '../components/common/Header';
-import CreateTweet from '../components/main/CreateTweet';
 import UserInfo from '../components/profile/UserInfo';
 import { ITweet } from '../interfaces';
 
@@ -32,10 +31,6 @@ const Profile: FC = () => {
     getKey,
     fetcher,
   );
-
-  const onClickMore = () => {
-    setSize(size + 1);
-  };
 
   useEffect(() => {
     if (data && !data[size - 1]) return;

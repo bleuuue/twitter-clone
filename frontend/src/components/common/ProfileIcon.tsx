@@ -1,10 +1,7 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import React, { FC, useEffect } from 'react';
-import useSWR from 'swr';
 import { useGetProfileImage } from '../../hooks/useGetProfileImage';
-import { toastError } from '../../utils/toastify';
 
 interface ProfileIconProps {
   userId: number;
@@ -21,7 +18,7 @@ const ProfileIcon: FC<ProfileIconProps> = ({ userId }) => {
         <div className="h-12 w-12">
           <img
             className="object-cover rounded-full h-12 w-12"
-            src={`${process.env.REACT_APP_BACKURL}/uploads/${data.profiles[0].filename}`}
+            src={`${process.env.REACT_APP_AWS_S3}/profiles-jung/${data.profiles[0].filename}`}
           />
         </div>
       ) : (

@@ -8,7 +8,6 @@ import { faRetweet } from '@fortawesome/free-solid-svg-icons';
 import Like from './Like';
 import { ITweet } from '../../../interfaces';
 import Ellipsis from './Ellipsis';
-import { MutatorCallback } from 'swr/dist/types';
 import { CreateTweetProps } from '../../main/CreateTweet';
 import ProfileIcon from '../ProfileIcon';
 
@@ -23,7 +22,7 @@ const Card: FC<CardProps> = ({ tweet, mutate, ellipsisEl }) => {
   return (
     <li className="flex border-b-1">
       <div className="mt-4 mx-4">
-        <ProfileIcon userId={tweet.users.id} />
+        <ProfileIcon userId={tweet.users?.id} />
       </div>
       <div className="mt-6 text-sm w-full mr-4">
         <span className="font-bold">{tweet.users?.nickname}</span>
