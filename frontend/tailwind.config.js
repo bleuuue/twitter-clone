@@ -6,6 +6,7 @@ module.exports = {
       fontFamily: {
         noto: 'Noto Sans KR',
       },
+      screens: { xs: { min: '0px', max: '639.98px' } },
     },
   },
   variants: {

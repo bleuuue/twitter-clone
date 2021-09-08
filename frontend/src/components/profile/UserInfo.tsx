@@ -9,34 +9,28 @@ import imageCompression from 'browser-image-compression';
 import useSWR from 'swr';
 import { IProfile } from '../../interfaces';
 import CreateProfile from './CreateProfile';
+import { useGetProfile } from '../../hooks/useGetProfile';
 
 const UserInfo: FC = () => {
   const [toggleIntroduce, setToggleIntroduce] = useState<boolean>(false);
-
   const { me } = useContext(MeContext);
-
   const { userId }: { userId: string } = useParams();
-
   const { mutate } = useGetProfileImage(+userId);
-
+  const { data, error, mutate: profileMutate } = useGetProfile(+userId);
   const onChangeProfileUpload = async (e: any) => {
     try {
       const token = localStorage.getItem('token');
       const imageFile = e.target.files[0];
       if (!imageFile) return;
-
       const compressedImage = await imageCompression(imageFile, {
         maxWidthOrHeight: 96,
       });
-
       const blobToFile = new File([compressedImage], compressedImage.name, {
         type: compressedImage.type,
       });
-
       const formData = new FormData();
-
+      // insomnia에서 파일 올리는 부분
       formData.append('image', blobToFile);
-
       const response = await axios.put(
         `${process.env.REACT_APP_BACK_URL}/users/profile`,
         formData,
@@ -46,50 +40,20 @@ const UserInfo: FC = () => {
           },
         },
       );
-
       if (response.statusText === 'OK') {
         mutate();
-        toastSuccess('Image upload success');
+        toastSuccess('Image upload success!!!');
       }
     } catch (error: any) {
       console.error(error);
       toastError(error.response.data.message);
     }
   };
-
   const onClickToggleIntroduce = () => {
     setToggleIntroduce(true);
   };
-
-  const fetcher = async (url: string) => {
-    try {
-      const token = localStorage.getItem('token');
-
-      const response = await axios.get(url, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      return response.data;
-    } catch (error: any) {
-      console.error(error);
-      toastError(error.response.data.message);
-    }
-  };
-
-  const {
-    data,
-    error,
-    mutate: profileMutate,
-  } = useSWR<IProfile>(
-    `${process.env.REACT_APP_BACK_URL}/users/profile/${userId}`,
-    fetcher,
-  );
-
   if (!data) return <div>Loading...</div>;
-  if (error) return <div>Error</div>;
-
+  if (error) return <div>error</div>;
   return (
     <>
       <div className="flex border-b-1">
@@ -97,23 +61,23 @@ const UserInfo: FC = () => {
           <ProfileIcon userId={data.id} />
           <div>{data.nickname}</div>
           {me === data.id && (
-            <div className="relative rounded-full px-2 py-1 font-black text-white bg-green-500 text-xs mx-2 mt-1 text-center">
+            <div className="relative rounded-full px-2 py-1 font-black text-white text-xs bg-black mx-2 mt-1 text-center">
               <input
                 className="w-full opacity-0 absolute"
                 type="file"
                 onChange={onChangeProfileUpload}
               />
-              <span>fix</span>
+              <span>Fix</span>
             </div>
           )}
         </div>
         <div className="flex justify-around w-full text-center">
           <div>
-            <div>Followers</div>
+            <div>Follwers</div>
             <div>123</div>
           </div>
           <div>
-            <div>Followings</div>
+            <div>Follwings</div>
             <div>123</div>
           </div>
           <div>
@@ -133,7 +97,7 @@ const UserInfo: FC = () => {
           {me === data.id && (
             <button
               onClick={onClickToggleIntroduce}
-              className="rounded-full px-2 py-1 font-black text-white bg-green-500 text-xs mx-2 mt-1 text-center"
+              className="rounded-full px-2 py-1 font-black text-white text-xs bg-black mx-2 mt-1 text-center"
             >
               Fix
             </button>
@@ -142,7 +106,7 @@ const UserInfo: FC = () => {
       ) : me === data.id ? (
         <CreateProfile profileMutate={profileMutate} />
       ) : (
-        <div>No introduce</div>
+        <div>No Introduce</div>
       )}
     </>
   );
