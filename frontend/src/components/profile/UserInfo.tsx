@@ -6,8 +6,6 @@ import ProfileIcon from '../common/ProfileIcon';
 import { toastError, toastSuccess } from '../../utils/toastify';
 import { useGetProfileImage } from '../../hooks/useGetProfileImage';
 import imageCompression from 'browser-image-compression';
-import useSWR from 'swr';
-import { IProfile } from '../../interfaces';
 import CreateProfile from './CreateProfile';
 import { useGetProfile } from '../../hooks/useGetProfile';
 

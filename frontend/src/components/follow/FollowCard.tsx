@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import ProfileIcon from '../common/ProfileIcon';
 
-const FollowCard = () => {
+const FollowCard: FC = () => {
   return (
     <div className="w-80">
       <div className="flex">
