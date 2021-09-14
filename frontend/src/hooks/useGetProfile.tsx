@@ -15,7 +15,7 @@ export const useGetProfile = (userId: number) => {
       });
 
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
       toastError(error.response.data.message);
     }
