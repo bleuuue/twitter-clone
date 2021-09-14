@@ -1,5 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { FC, useContext, useState, useEffect } from 'react';
+import React, {
+  FC,
+  useContext,
+  useState,
+  useEffect,
+  MutableRefObject,
+} from 'react';
 import {
   faEllipsisH,
   faExclamationTriangle,
@@ -10,9 +16,21 @@ import {
 } from '@fortawesome/free-regular-svg-icons';
 import { MeContext } from '../../../contexts';
 import axios from 'axios';
-import { CardProps } from './Card';
+import { ITweet } from '../../../interfaces';
+import { MutatorCallback } from 'swr/dist/types';
 
-type EllipsisProps = CardProps;
+interface EllipsisProps {
+  tweet: ITweet;
+  ellipsisEl: MutableRefObject<HTMLDivElement | null>;
+  mutate: (
+    data?:
+      | ITweet[][]
+      | Promise<ITweet[][]>
+      | MutatorCallback<ITweet[][]>
+      | undefined,
+    shouldRevalidate?: boolean | undefined,
+  ) => Promise<ITweet[][] | undefined>;
+}
 
 const Ellipsis: FC<EllipsisProps> = ({ tweet, mutate, ellipsisEl }) => {
   const { me } = useContext(MeContext);
