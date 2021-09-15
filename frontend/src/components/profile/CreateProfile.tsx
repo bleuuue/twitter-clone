@@ -57,7 +57,11 @@ const CreateProfile: FC<CreateProfileProps> = ({
         onChange={onChangeIntroduce}
         placeholder="Write Introduce"
       />
-      <input type="submit" value="Submit" />
+      <input
+        className="relative rounded-full px-5 py-1 font-black text-white text-xs bg-black mx-2 mt-1 text-center"
+        type="submit"
+        value="Fix"
+      />
     </form>
   );
 };

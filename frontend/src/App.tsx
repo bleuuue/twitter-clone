@@ -5,6 +5,7 @@ import Layout from './components/common/Layout';
 import { MeProvider } from './contexts';
 import Profile from './pages/profile';
 import { ToastContainer } from 'react-toastify';
+import Followers from './pages/followers';
 
 const App: FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: FC = () => {
             <Switch>
               <Route exact path="/" component={Main} />
               <Route exact path="/profile/:userId" component={Profile} />
+              <Route exact path="/profile/:followers" component={Followers} />
             </Switch>
           </Layout>
         </Router>

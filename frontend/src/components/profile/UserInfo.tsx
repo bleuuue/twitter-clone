@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from 'react';
 import { MeContext } from '../../contexts';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import ProfileIcon from '../common/ProfileIcon';
 import { toastError, toastSuccess } from '../../utils/toastify';
@@ -8,6 +8,9 @@ import { useGetProfileImage } from '../../hooks/useGetProfileImage';
 import imageCompression from 'browser-image-compression';
 import CreateProfile from './CreateProfile';
 import { useGetProfile } from '../../hooks/useGetProfile';
+import useSWR from 'swr';
+import { fetcher } from '../../utils/fetcher';
+import { IProfileInfo } from '../../interfaces';
 
 const UserInfo: FC = () => {
   const [toggleIntroduce, setToggleIntroduce] = useState<boolean>(false);
@@ -50,6 +53,12 @@ const UserInfo: FC = () => {
   const onClickToggleIntroduce = () => {
     setToggleIntroduce(true);
   };
+
+  const { data: profileInfoData } = useSWR<IProfileInfo>(
+    `${process.env.REACT_APP_BACK_URL}/users/profile/info/${userId}`,
+    fetcher,
+  );
+
   if (!data) return <div>Loading...</div>;
   if (error) return <div>error</div>;
   return (
@@ -70,18 +79,21 @@ const UserInfo: FC = () => {
           )}
         </div>
         <div className="flex justify-around w-full text-center">
-          <div>
+          <Link
+            className="hover:text-green-500"
+            to={`/profile/${userId}/followers`}
+          >
             <div>Follwers</div>
-            <div>123</div>
-          </div>
+            <div>{profileInfoData?.followers.length}</div>
+          </Link>
           <div>
             <div>Follwings</div>
-            <div>123</div>
+            <div>{profileInfoData?.followings.length}</div>
           </div>
-          <div>
+          <Link className="hover:text-green-500" to={`/profile/${userId}`}>
             <div>Tweets</div>
-            <div>123</div>
-          </div>
+            <div>{profileInfoData?.tweets.length}</div>
+          </Link>
         </div>
       </div>
       {toggleIntroduce ? (

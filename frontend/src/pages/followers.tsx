@@ -14,7 +14,7 @@ const getKey =
     return `${process.env.REACT_APP_BACK_URL}/tweets/${userId}?page=${pageIndex}`;
   };
 
-const Profile: FC = () => {
+const Followers: FC = () => {
   const lastEl = createRef<HTMLDivElement>();
   const intersectionObserver = useRef<IntersectionObserver>();
   const sizeRef = useRef<number>(1);
@@ -71,11 +71,8 @@ const Profile: FC = () => {
       <div ref={lastEl} className="text-white">
         Twitter-clone
       </div>
-      {/* <button className="text-2xl" onClick={onClickMore}>
-        More
-      </button> */}
     </>
   );
 };
 
-export default Profile;
+export default Followers;
