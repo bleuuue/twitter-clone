@@ -12,7 +12,7 @@ import { useGetProfile } from '../../hooks/useGetProfile';
 const UserInfo: FC = () => {
   const [toggleIntroduce, setToggleIntroduce] = useState<boolean>(false);
   const { me } = useContext(MeContext);
-  const { userId }: { userId: string } = useParams();
+  const { userId } = useParams<{ userId: string }>();
   const { mutate } = useGetProfileImage(+userId);
   const { data, error, mutate: profileMutate } = useGetProfile(+userId);
   const onChangeProfileUpload = async (e: any) => {

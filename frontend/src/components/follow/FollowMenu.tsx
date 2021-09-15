@@ -26,10 +26,12 @@ const FollowMenu: FC = () => {
           <input className="border-1 border-white rounded-full px-12 py-3 focus:outline-none focus:border-green-500 bg-gray-100 focus:bg-white" />
         </form>
       </div>
-      <div>
+      <div className="my-4">
         <FollowerList followersData={followersData} />
       </div>
-      <div>{/* <FollowingList followingsData={followingsData} /> */}</div>
+      <div className="my-4">
+        <FollowingList followingsData={followingsData} />
+      </div>
     </div>
   );
 };

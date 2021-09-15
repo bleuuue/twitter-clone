@@ -5,6 +5,7 @@ import Cards from '../components/common/card/Cards';
 import Header from '../components/common/Header';
 import UserInfo from '../components/profile/UserInfo';
 import { ITweet } from '../interfaces';
+import { useParams } from 'react-router-dom';
 
 const getKey = (pageIndex: number, previusPageData: any) => {
   // 마지막 페이지일 경우
@@ -51,7 +52,9 @@ const Profile: FC = () => {
     }
   }, [lastEl]);
 
-  useEffect(() => console.log(data), [data]);
+  const params = useParams();
+
+  useEffect(() => console.log(params), [params]);
 
   if (!data) return <div>loading...</div>;
   if (error) return <div>error</div>;

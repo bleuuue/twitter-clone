@@ -26,7 +26,7 @@ export interface IComment {
 
 export interface IFollower {
   id: number;
-  follower: {
+  following: {
     id: number;
     nickname: string;
   };
@@ -34,7 +34,7 @@ export interface IFollower {
 
 export interface IFollowing {
   id: number;
-  following: {
+  follower: {
     id: number;
     nickname: string;
   };
