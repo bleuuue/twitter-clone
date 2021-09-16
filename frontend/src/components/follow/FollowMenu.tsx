@@ -13,11 +13,6 @@ const FollowMenu: FC = () => {
   const { data: followersData } = useFollowers(me);
   const { data: followingsData } = useFollowings(me);
 
-  useEffect(() => {
-    console.log(followersData);
-    console.log(followingsData);
-  }, [followersData, followingsData]);
-
   return (
     <div className="flex-auto">
       <div>

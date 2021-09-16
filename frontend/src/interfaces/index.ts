@@ -29,6 +29,7 @@ export interface IFollower {
   following: {
     id: number;
     nickname: string;
+    introduce: string;
   };
 }
 
@@ -37,6 +38,7 @@ export interface IFollowing {
   follower: {
     id: number;
     nickname: string;
+    introduce: string;
   };
 }
 
@@ -53,4 +55,14 @@ export interface IProfileInfo {
   tweets: {
     id: number;
   }[];
+}
+
+export interface IFollowList {
+  id: number;
+  follower: {
+    id: number;
+  };
+  following: {
+    id: number;
+  };
 }

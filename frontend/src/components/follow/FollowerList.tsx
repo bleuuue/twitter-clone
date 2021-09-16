@@ -14,7 +14,13 @@ const FollowerList: FC<FollowerListProps> = ({ followersData }) => {
         <div className="flex justify-center pb-4">Not exist follower list</div>
       ) : (
         followersData?.map((v) => {
-          return <FollowCard key={v.id} nickname={v.following.nickname} />;
+          return (
+            <FollowCard
+              key={v.id}
+              nickname={v.following.nickname}
+              introduce={v.following.introduce}
+            />
+          );
         })
       )}
     </div>

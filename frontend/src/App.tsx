@@ -3,9 +3,9 @@ import Main from './pages/main';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from './components/common/Layout';
 import { MeProvider } from './contexts';
-import Profile from './pages/profile';
+import Profile from './pages/profile/profile';
 import { ToastContainer } from 'react-toastify';
-import Followers from './pages/followers';
+import Followers from './pages/profile/followers';
 
 const App: FC = () => {
   return (
@@ -20,7 +20,11 @@ const App: FC = () => {
             <Switch>
               <Route exact path="/" component={Main} />
               <Route exact path="/profile/:userId" component={Profile} />
-              <Route exact path="/profile/:followers" component={Followers} />
+              <Route
+                exact
+                path="/profile/:userId/:followers"
+                component={Followers}
+              />
             </Switch>
           </Layout>
         </Router>

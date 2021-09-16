@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import { MeContext } from '../../contexts';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -9,15 +9,22 @@ import imageCompression from 'browser-image-compression';
 import CreateProfile from './CreateProfile';
 import { useGetProfile } from '../../hooks/useGetProfile';
 import useSWR from 'swr';
-import { fetcher } from '../../utils/fetcher';
-import { IProfileInfo } from '../../interfaces';
+import { fetcher, tokenFetcher } from '../../utils/fetcher';
+import { IFollowList, IProfileInfo } from '../../interfaces';
+import { useFollowings } from '../../hooks/useFollow';
 
 const UserInfo: FC = () => {
   const [toggleIntroduce, setToggleIntroduce] = useState<boolean>(false);
+
   const { me } = useContext(MeContext);
+
   const { userId } = useParams<{ userId: string }>();
+
   const { mutate } = useGetProfileImage(+userId);
+  const { mutate: followingsMutate } = useFollowings(me);
+
   const { data, error, mutate: profileMutate } = useGetProfile(+userId);
+
   const onChangeProfileUpload = async (e: any) => {
     try {
       const token = localStorage.getItem('token');
@@ -50,17 +57,54 @@ const UserInfo: FC = () => {
       toastError(error.response.data.message);
     }
   };
+
   const onClickToggleIntroduce = () => {
     setToggleIntroduce(true);
   };
 
-  const { data: profileInfoData } = useSWR<IProfileInfo>(
-    `${process.env.REACT_APP_BACK_URL}/users/profile/info/${userId}`,
-    fetcher,
+  const onClickFollow = async () => {
+    try {
+      const token = localStorage.getItem('token');
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACK_URL}/users/follow/${userId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      console.log(response.data);
+      if (response.statusText === 'Created') {
+        toastSuccess(
+          `${isFollowData && isFollowData ? '언팔로우 성공' : '팔로우 성공'}`,
+        );
+        isFollowMutate();
+        profileInfoMutate();
+        followingsMutate();
+      }
+    } catch (error: any) {
+      console.error(error);
+      toastError(error);
+    }
+  };
+
+  const { data: profileInfoData, mutate: profileInfoMutate } =
+    useSWR<IProfileInfo>(
+      `${process.env.REACT_APP_BACK_URL}/users/profile/info/${userId}`,
+      fetcher,
+    );
+
+  const { data: isFollowData, mutate: isFollowMutate } = useSWR<boolean>(
+    `${process.env.REACT_APP_BACK_URL}/users/is-follow/${userId}`,
+    tokenFetcher,
   );
 
   if (!data) return <div>Loading...</div>;
   if (error) return <div>error</div>;
+
   return (
     <>
       <div className="flex border-b-1">
@@ -94,6 +138,17 @@ const UserInfo: FC = () => {
             <div>Tweets</div>
             <div>{profileInfoData?.tweets.length}</div>
           </Link>
+          {me !== +userId && (
+            <div>
+              <button
+                className={`rounded-full px-4 py-2 font-black text-white text-sm mt-2 bg-black
+                ${isFollowData && isFollowData ? 'bg-black' : 'bg-green-500'} `}
+                onClick={onClickFollow}
+              >
+                {isFollowData && isFollowData ? 'Unfollow' : 'Follow'}
+              </button>
+            </div>
+          )}
         </div>
       </div>
       {toggleIntroduce ? (

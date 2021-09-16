@@ -1,11 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import ProfileIcon from '../common/ProfileIcon';
 
 interface FollowCardProps {
   nickname: string;
+  introduce: string;
 }
 
-const FollowCard: FC<FollowCardProps> = ({ nickname }) => {
+const FollowCard: FC<FollowCardProps> = ({ nickname, introduce }) => {
+  useEffect(() => console.log(introduce), [introduce]);
   return (
     <div className="w-80">
       <div className="flex px-4 py-2 hover:bg-gray-300">
@@ -13,7 +15,7 @@ const FollowCard: FC<FollowCardProps> = ({ nickname }) => {
         <div className="flex items-center justify-between w-full ml-2">
           <div>
             <div>{nickname}</div>
-            <div>introduce</div>
+            <div>{introduce ? introduce : 'No Introduce'}</div>
           </div>
           <div>
             <button className="rounded-full px-4 py-2 font-black text-white bg-black text-sm">

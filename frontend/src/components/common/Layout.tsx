@@ -7,8 +7,6 @@ import LeftMenu from './LeftMenu';
 const Layout: FC = ({ children }) => {
   const { me } = useContext(MeContext);
 
-  useEffect(() => console.log(me), []);
-
   if (!me) return <Login />;
 
   return (
