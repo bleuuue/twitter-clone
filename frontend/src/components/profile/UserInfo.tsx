@@ -76,7 +76,6 @@ const UserInfo: FC = () => {
         },
       );
 
-      console.log(response.data);
       if (response.statusText === 'Created') {
         toastSuccess(
           `${isFollowData && isFollowData ? '언팔로우 성공' : '팔로우 성공'}`,

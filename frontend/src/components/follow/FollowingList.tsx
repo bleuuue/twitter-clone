@@ -17,6 +17,7 @@ const FollowingList: FC<FollowingListProps> = ({ followingsData }) => {
           return (
             <FollowCard
               key={v.id}
+              userId={v.follower.id}
               nickname={v.follower.nickname}
               introduce={v.follower.introduce}
             />

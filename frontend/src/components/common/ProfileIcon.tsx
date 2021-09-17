@@ -10,8 +10,6 @@ interface ProfileIconProps {
 const ProfileIcon: FC<ProfileIconProps> = ({ userId }) => {
   const { data } = useGetProfileImage(userId);
 
-  useEffect(() => console.log(data), [data]);
-
   return (
     <>
       {data && data.profiles.length !== 0 ? (

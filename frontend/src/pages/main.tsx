@@ -49,8 +49,6 @@ const Main: FC = () => {
     }
   }, [lastEl]);
 
-  useEffect(() => console.log(data), [data]);
-
   if (!data) return <div>loading...</div>;
   if (error) return <div>error</div>;
 
