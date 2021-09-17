@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import { MeContext } from '../../contexts';
 import FollowMenu from '../follow/FollowMenu';
 import Login from '../login/Login';

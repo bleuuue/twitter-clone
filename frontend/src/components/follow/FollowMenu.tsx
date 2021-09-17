@@ -1,9 +1,8 @@
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { FC, useContext, useEffect } from 'react';
+import React, { FC, useContext } from 'react';
 import { MeContext } from '../../contexts';
 import { useFollowers, useFollowings } from '../../hooks/useFollow';
-import FollowCard from './FollowCard';
 import FollowerList from './FollowerList';
 import FollowingList from './FollowingList';
 

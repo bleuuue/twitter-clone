@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { FC } from 'react';
 import useSWR from 'swr';
 import Header from '../../components/common/Header';

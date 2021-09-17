@@ -1,6 +1,6 @@
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { useGetProfileImage } from '../../hooks/useGetProfileImage';
 
 interface ProfileIconProps {

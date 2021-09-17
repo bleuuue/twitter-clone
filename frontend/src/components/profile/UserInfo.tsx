@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { MeContext } from '../../contexts';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import CreateProfile from './CreateProfile';
 import { useGetProfile } from '../../hooks/useGetProfile';
 import useSWR from 'swr';
 import { fetcher, tokenFetcher } from '../../utils/fetcher';
-import { IFollowList, IProfileInfo } from '../../interfaces';
+import { IProfileInfo } from '../../interfaces';
 import { useFollowings } from '../../hooks/useFollow';
 
 const UserInfo: FC = () => {

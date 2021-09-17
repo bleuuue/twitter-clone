@@ -1,6 +1,5 @@
 import { IComment, ITweet } from '../interfaces';
 import axios from 'axios';
-import React, { FC } from 'react';
 import useSWR from 'swr';
 import { toastError } from '../utils/toastify';
 
