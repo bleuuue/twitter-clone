@@ -130,10 +130,13 @@ const UserInfo: FC = () => {
             <div>Follwers</div>
             <div>{profileInfoData?.followers.length}</div>
           </Link>
-          <div>
+          <Link
+            className="hover:text-green-500"
+            to={`/profile/${userId}/followings`}
+          >
             <div>Follwings</div>
             <div>{profileInfoData?.followings.length}</div>
-          </div>
+          </Link>
           <Link className="hover:text-green-500" to={`/profile/${userId}`}>
             <div>Tweets</div>
             <div>{profileInfoData?.tweets.length}</div>

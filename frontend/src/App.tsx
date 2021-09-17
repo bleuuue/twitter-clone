@@ -6,6 +6,7 @@ import { MeProvider } from './contexts';
 import Profile from './pages/profile/profile';
 import { ToastContainer } from 'react-toastify';
 import Followers from './pages/profile/followers';
+import Followings from './pages/profile/followings';
 
 const App: FC = () => {
   return (
@@ -22,8 +23,13 @@ const App: FC = () => {
               <Route exact path="/profile/:userId" component={Profile} />
               <Route
                 exact
-                path="/profile/:userId/:followers"
+                path="/profile/:userId/followers"
                 component={Followers}
+              />
+              <Route
+                exact
+                path="/profile/:userId/followings"
+                component={Followings}
               />
             </Switch>
           </Layout>

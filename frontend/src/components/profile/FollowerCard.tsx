@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { IFollower } from '../../interfaces';
 import ProfileIcon from '../common/ProfileIcon';
+import { Link } from 'react-router-dom';
 
 interface FollowerCardProps {
   follower: IFollower;
@@ -8,17 +9,21 @@ interface FollowerCardProps {
 
 const FollowerCard: FC<FollowerCardProps> = ({ follower }) => {
   return (
-    <li>
-      <ProfileIcon userId={follower.following.id} />
-      <div>
-        <div>{follower.following.nickname}</div>
-        <div>
-          {follower.following.introduce
-            ? follower.following.introduce
-            : 'No Introduce'}
+    <Link to={`/profile/${follower.following.id}`}>
+      <li className="flex border-b-1">
+        <div className="m-4">
+          <ProfileIcon userId={follower.following.id} />
         </div>
-      </div>
-    </li>
+        <div className="mt-6 text-sm w-full mr-4">
+          <div>{follower.following.nickname}</div>
+          <div className="mt-1">
+            {follower.following.introduce
+              ? follower.following.introduce
+              : 'No Introduce'}
+          </div>
+        </div>
+      </li>
+    </Link>
   );
 };
 

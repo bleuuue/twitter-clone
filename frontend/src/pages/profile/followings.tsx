@@ -1,18 +1,17 @@
-import axios from 'axios';
 import React, { FC } from 'react';
 import useSWR from 'swr';
 import Header from '../../components/common/Header';
 import { useParams } from 'react-router-dom';
 import UserInfo from '../../components/profile/UserInfo';
 import { fetcher } from '../../utils/fetcher';
-import FollowerCard from '../../components/profile/FollowerCard';
-import { IFollower } from '../../interfaces';
+import { IFollowing } from '../../interfaces';
+import FollowingCard from '../../components/profile/FollowingCard';
 
-const Followers: FC = () => {
+const Followings: FC = () => {
   const { userId } = useParams<{ userId: string }>();
 
-  const { data, error } = useSWR<IFollower[]>(
-    `${process.env.REACT_APP_BACK_URL}/users/followers/${userId}`,
+  const { data, error } = useSWR<IFollowing[]>(
+    `${process.env.REACT_APP_BACK_URL}/users/followings/${userId}`,
     fetcher,
   );
 
@@ -21,13 +20,13 @@ const Followers: FC = () => {
 
   return (
     <>
-      <Header title="Follows" />
+      <Header title="Followings" />
       <UserInfo />
-      {data.map((follower, i) => {
-        return <FollowerCard key={i} follower={follower} />;
+      {data.map((following, i) => {
+        return <FollowingCard key={i} following={following} />;
       })}
     </>
   );
 };
 
-export default Followers;
+export default Followings;
