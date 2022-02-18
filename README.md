@@ -7,7 +7,7 @@
 ## **[ About ]**
 **Twitter : 소셜 네트워크 서비스**
 
-트위터를 클론하며 `React, NestJS`를 학습하기 위한 프로젝트로 Front-end를 구현한 코드입니다.
+트위터를 클론하며 `React, NestJS`를 학습하기 위한 프로젝트로 **Front-end**를 구현한 코드입니다.
 
 ### Development period
 21.09.13 ~ 21.10.27
